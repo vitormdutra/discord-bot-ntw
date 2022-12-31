@@ -15,8 +15,9 @@ ENV PYTHONIOENCODING=utf-8
 ENV TZ="America/Sao_Paulo"
 
 RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y ffmpeg
 
 COPY . ./
 
 
-CMD ["sh","-c","python3 main.py"]
+CMD ["sh","-c","python3 main2.py"]
