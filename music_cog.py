@@ -1,4 +1,3 @@
-from ast import alias
 import discord
 from discord.ext import commands
 
@@ -31,10 +30,7 @@ class music_cog(commands.Cog):
 
         return {'source': info['formats'][0]['url'], 'title': info['title']}
 
-    async def drop(self):
-        print("teste")
-        await self.vc.disconnect()
-    async def play_next(self):
+    def play_next(self):
         if len(self.music_queue) > 0:
             self.is_playing = True
 
@@ -46,36 +42,34 @@ class music_cog(commands.Cog):
 
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
-            await self.drop()
-            #self.is_playing = False
+            self.is_playing = False
 
-    # infinite loop checking 
+
+    # infinite loop checking
     async def play_music(self, ctx):
-        if self.is_playing == False:
-            if len(self.music_queue) > 0:
-                self.is_playing = True
+        if len(self.music_queue) > 0:
+            self.is_playing = True
 
-                m_url = self.music_queue[0][0]['source']
+            m_url = self.music_queue[0][0]['source']
 
-                # try to connect to voice channel if you are not already connected
-                if self.vc == None or not self.vc.is_connected():
-                    self.vc = await self.music_queue[0][1].connect()
+            # try to connect to voice channel if you are not already connected
+            if self.vc == None or not self.vc.is_connected():
+                self.vc = await self.music_queue[0][1].connect()
 
-                    # in case we fail to connect
-                    if self.vc == None:
-                        await ctx.send("Could not connect to the voice channel")
-                        return
-                else:
-                    await self.vc.move_to(self.music_queue[0][1])
+                # in case we fail to connect
+                if self.vc == None:
+                    await ctx.send("Could not connect to the voice channel")
+                    return
+            else:
+                await self.vc.move_to(self.music_queue[0][1])
 
-                # remove the first element as you are currently playing it
-                self.music_queue.pop(0)
+            # remove the first element as you are currently playing it
+            self.music_queue.pop(0)
 
-                self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
-            #else:
-                #await self.vc.disconnect()
+            self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
-            self.play_next()
+            self.is_playing = False
+            await self.vc.disconnect()
 
     @commands.command(name="play", aliases=["p", "playing"], help="Plays a selected song from youtube")
     async def play(self, ctx, *args):
@@ -99,16 +93,11 @@ class music_cog(commands.Cog):
                 if self.is_playing == False:
                     await self.play_music(ctx)
 
-    @commands.command(name="pause", help="Pauses the current song being played")
+    @commands.command(name="stop", help="Stop the current song being played")
     async def pause(self, ctx, *args):
         if self.is_playing:
             self.is_playing = False
-            self.is_paused = True
-            self.vc.pause()
-        elif self.is_paused:
-            self.is_paused = False
-            self.is_playing = True
-            self.vc.resume()
+            await self.vc.disconnect()
 
     @commands.command(name="resume", aliases=["r"], help="Resumes playing with the discord bot")
     async def resume(self, ctx, *args):
@@ -148,4 +137,4 @@ class music_cog(commands.Cog):
     async def dc(self, ctx):
         self.is_playing = False
         self.is_paused = False
-        await self.vc.disconnect()
+        await self.vc.disconnect() 
