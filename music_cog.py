@@ -50,7 +50,7 @@ class music_cog(commands.Cog):
                 print ("can't verificate")
 
     # infinite loop checking
-    async def play_music(self, ctx):
+    async def play_music(self, ):
         if len(self.music_queue) > 0:
             self.is_playing = True
 
@@ -62,7 +62,7 @@ class music_cog(commands.Cog):
 
                 # in case we fail to connect
                 if self.vc == None:
-                    await ctx.send("Could not connect to the voice channel")
+                    # await ctx.send("Could not connect to the voice channel")
                     return
             else:
                 await self.vc.move_to(self.music_queue[0][1])
