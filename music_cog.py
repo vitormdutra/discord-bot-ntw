@@ -44,7 +44,7 @@ class music_cog(commands.Cog):
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
             self.is_playing = False
-            time.sleep(self.verify())
+            return self.verify()
 
     # infinite loop checking
     async def play_music(self, ctx):
