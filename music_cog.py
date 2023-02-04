@@ -45,7 +45,7 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             try:
-                self.verify()
+                asyncio.run(self.verify())
             except:
                 print ("can't verificate")
 
@@ -75,10 +75,10 @@ class music_cog(commands.Cog):
             self.is_playing = False
             await self.vc.disconnect()
     
-    def verify (self):
+    async def verify (self):
             if self.is_playing == False:
                 try:
-                    asyncio.run(self.vc.disconnect())
+                    await self.vc.disconnect()
                 except:
                     print ("Problem in disconnect the bot")
 
