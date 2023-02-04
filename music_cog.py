@@ -44,7 +44,7 @@ class music_cog(commands.Cog):
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next(ctx))
         else:
             self.is_playing = False
-            return music_cog.dc
+            return self.dc()
             try:
                 #asyncio.create_task(ctx.send("deu ruim"))
                 asyncio.run(self.verify())
