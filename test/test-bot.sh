@@ -13,7 +13,7 @@ git pull
 
 docker build -t ${PROJECT} .
 
-docker stop ${PROJECT}
-docker rm ${PROJECT}
+docker stop ${CTNR_NAME}
+docker rm ${CTNR_NAME}
 
 docker run -d --restart=always --name ${CTNR_NAME} ${PROJECT}
