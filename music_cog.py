@@ -70,7 +70,7 @@ class music_cog(commands.Cog):
             # remove the first element as you are currently playing it
             self.music_queue.pop(0)
 
-            asyncio.run(self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_music(ctx)))
+            asyncio.get_running_loop(self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_music(ctx)))
         else:
             self.is_playing = False
             await self.vc.disconnect()
