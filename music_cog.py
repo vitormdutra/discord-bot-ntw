@@ -31,7 +31,7 @@ class music_cog(commands.Cog):
 
         return {'source': info['formats'][0]['url'], 'title': info['title']}
 
-    def play_next(self):
+    async def play_next(self):
         if len(self.music_queue) > 0:
             self.is_playing = True
 
@@ -45,7 +45,7 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             if self.is_playing == False: 
-                return self.verify()
+                await self.verify()
 
     # infinite loop checking
     async def play_music(self, ctx):
