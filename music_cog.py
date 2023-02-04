@@ -45,7 +45,9 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             try:
-                return asyncio.run(self.verify())
+                print ("can't verificate")
+                asyncio.run(self.verify())
+                print ("can't verificate")
             except:
                 print ("can't verificate")
 
