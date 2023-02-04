@@ -1,4 +1,4 @@
-import time
+import asyncio
 import discord
 from discord.ext import commands
 
@@ -78,7 +78,7 @@ class music_cog(commands.Cog):
     def verify (self):
             if self.is_playing == False:
                 try:
-                    self.vc.disconnect()
+                    asyncio.run(self.vc.disconnect())
                 except:
                     print ("Problem in disconnect the bot")
 
