@@ -50,7 +50,7 @@ class music_cog(commands.Cog):
                 print ("can't verificate")
 
     # infinite loop checking
-    async def play_music(self, ):
+    async def play_music(self):
         if len(self.music_queue) > 0:
             self.is_playing = True
 
