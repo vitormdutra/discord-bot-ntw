@@ -45,7 +45,7 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             try:
-                asyncio.create_task(ctx.send("deu ruim"))
+                #asyncio.create_task(ctx.send("deu ruim"))
                 asyncio.run(self.verify())
                 print ("can't verificate")
             except:
