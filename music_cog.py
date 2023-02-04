@@ -77,7 +77,10 @@ class music_cog(commands.Cog):
     
     def verify (self):
             if self.is_playing == False:
-                return self.vc.disconnect()
+                try:
+                    self.vc.disconnect()
+                except:
+                    print ("Problem in disconnect the bot")
 
     @commands.command(name="play", aliases=["p", "playing"], help="Plays a selected song from youtube")
     async def play(self, ctx, *args):
