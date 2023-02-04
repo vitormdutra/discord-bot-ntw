@@ -77,7 +77,7 @@ class music_cog(commands.Cog):
     
     def verify(self):
             try:
-                self.vc.disconnect()
+                asyncio.run(self.vc.disconnect())
             except:
                 print ("Problem in disconnect the bot")
 
