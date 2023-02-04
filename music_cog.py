@@ -43,6 +43,7 @@ class music_cog(commands.Cog):
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
             self.is_playing = False
+            self.verify()
 
 
     # infinite loop checking
@@ -70,6 +71,10 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             await self.vc.disconnect()
+    
+    async def verify (self):
+            if self.is_playing == False:
+                await self.vc.disconnect()
 
     @commands.command(name="play", aliases=["p", "playing"], help="Plays a selected song from youtube")
     async def play(self, ctx, *args):
