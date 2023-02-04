@@ -45,12 +45,12 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             try:
-                asyncio.run(self.verify())
+                self.verify()
             except:
                 print ("can't verificate")
 
     # infinite loop checking
-    async def play_music(self):
+    async def play_music(self, ctx):
         if len(self.music_queue) > 0:
             self.is_playing = True
 
@@ -62,7 +62,7 @@ class music_cog(commands.Cog):
 
                 # in case we fail to connect
                 if self.vc == None:
-                    # await ctx.send("Could not connect to the voice channel")
+                    await ctx.send("Could not connect to the voice channel")
                     return
             else:
                 await self.vc.move_to(self.music_queue[0][1])
@@ -75,9 +75,9 @@ class music_cog(commands.Cog):
             self.is_playing = False
             await self.vc.disconnect()
     
-    async def verify(self):
+    def verify(self):
             try:
-                await self.vc.disconnect()
+                asyncio.get_running_loop(self.vc.disconnect())
             except:
                 print ("Problem in disconnect the bot")
 
