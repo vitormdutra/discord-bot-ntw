@@ -75,9 +75,9 @@ class music_cog(commands.Cog):
             self.is_playing = False
             await self.vc.disconnect()
     
-    async def verify (self):
+    def verify (self):
             if self.is_playing == False:
-                await self.vc.disconnect()
+                return self.vc.disconnect()
 
     @commands.command(name="play", aliases=["p", "playing"], help="Plays a selected song from youtube")
     async def play(self, ctx, *args):
