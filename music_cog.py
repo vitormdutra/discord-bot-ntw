@@ -31,7 +31,7 @@ class music_cog(commands.Cog):
 
         return {'source': info['formats'][0]['url'], 'title': info['title']}
 
-    async def play_next(self):
+    def play_next(self):
         if len(self.music_queue) > 0:
             self.is_playing = True
 
@@ -44,8 +44,10 @@ class music_cog(commands.Cog):
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
             self.is_playing = False
-            if self.is_playing == False: 
-                await self.verify()
+            try:
+                self.verify
+            except:
+                print ("can't verificate")
 
     # infinite loop checking
     async def play_music(self, ctx):
