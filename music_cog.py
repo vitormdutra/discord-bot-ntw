@@ -45,7 +45,7 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             try:
-                self.verify
+                self.verify()
             except:
                 print ("can't verificate")
 
