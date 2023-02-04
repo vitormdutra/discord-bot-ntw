@@ -31,7 +31,7 @@ class music_cog(commands.Cog):
 
         return {'source': info['formats'][0]['url'], 'title': info['title']}
 
-    def play_next(self):
+    def play_next(self, ctx):
         if len(self.music_queue) > 0:
             self.is_playing = True
 
@@ -45,7 +45,7 @@ class music_cog(commands.Cog):
         else:
             self.is_playing = False
             try:
-                print ("can't verificate")
+                ctx.send("deu ruim")
                 asyncio.run(self.verify())
                 print ("can't verificate")
             except:
