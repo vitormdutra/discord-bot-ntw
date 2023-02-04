@@ -75,7 +75,7 @@ class music_cog(commands.Cog):
             self.is_playing = False
             await self.vc.disconnect()
     
-    async def verify (self):
+    async def verify(self):
             if self.is_playing == False:
                 try:
                     await self.vc.disconnect()
