@@ -49,7 +49,7 @@ class music_cog(commands.Cog):
                 asyncio.run(self.verify())
                 print ("can't verificate")
             except:
-                print ("can't verificate")
+                return 0
 
     # infinite loop checking
     async def play_music(self, ctx):
