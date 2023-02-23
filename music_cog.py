@@ -87,7 +87,7 @@ class music_cog(commands.Cog):
                 self.music_queue.append([song, voice_channel])
 
                 if self.is_playing == False:
-                    self.play_music(ctx)
+                    await self.play_music(ctx)
 
     @commands.command(name="stop", help="Stop the current song being played")
     async def pause(self, ctx, *args):
