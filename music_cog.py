@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import yt_dlp
 class music_cog(commands.Cog):
-    def __aenter__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
         # all the music related stuff
