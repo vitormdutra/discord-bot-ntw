@@ -22,5 +22,5 @@ bot = commands.Bot(intents=discord.Intents.all(), command_prefix='/')
 @bot.event
 async def on_ready():
     await bot.add_cog(music_cog(bot))
-    
+
 bot.run('MTAyNjIzOTk1MzE2MTY4Mjk0NQ.G8QMtT.y1-RXvr2T2tW4Ug7hiTaKtYP9RkpmVZ2ZSGThs')
