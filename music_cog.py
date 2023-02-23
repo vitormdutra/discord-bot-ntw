@@ -17,11 +17,6 @@ class music_cog(commands.Cog):
 
         self.vc = None
 
-    def __enter__(self):
-        return "entered!"
-    def __exit__(self, exc_type, exc_value, traceback):
-        print("exited!")
-
     # searching the item on youtube
     def search_yt(self, item):
         with yt_dlp.YoutubeDL(self.YDL_OPTIONS) as ydl:

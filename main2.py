@@ -27,5 +27,10 @@ async def main():
         await bot.add_cog(music_cog(bot))
         await bot.start('MTAyNjIzOTk1MzE2MTY4Mjk0NQ.G8QMtT.y1-RXvr2T2tW4Ug7hiTaKtYP9RkpmVZ2ZSGThs')
 
+def __enter__(self):
+    return "entered!"
+def __exit__(self, exc_type, exc_value, traceback):
+    print("exited!")
+
 
 asyncio.run(main())
