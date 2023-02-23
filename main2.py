@@ -29,3 +29,15 @@ async def main():
 
 
 asyncio.run(main())
+
+
+def __enter__(self):
+    return "entered!"
+
+
+def __aenter__(self):
+    return "Sla!"
+
+
+def __exit__(self, exc_type, exc_value, traceback):
+    print("exited!")
