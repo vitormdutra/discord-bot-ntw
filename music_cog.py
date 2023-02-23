@@ -92,10 +92,11 @@ class music_cog(commands.Cog):
 
     @commands.command(name="join", help="command to join in room")
     async def join(self, ctx, *, channel: discord.VoiceChannel):
+        voice_channel = ctx.author.voice.channel
         if ctx.voice_client is not None:
-            return await ctx.voice_client.move_to(channel)
+            return await ctx.voice_client.move_to(voice_channel)
 
-        await channel.connect()
+        await voice_channel.connect()
 
     @commands.command(name="stop", help="Stop the current song being played")
     async def pause(self, ctx, *args):
