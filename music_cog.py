@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from youtube_dl import YoutubeDL
+#from youtube_dl import YoutubeDL
 import yt_dlp
 class music_cog(commands.Cog):
     def __init__(self, bot):
@@ -53,7 +53,7 @@ class music_cog(commands.Cog):
 
             # try to connect to voice channel if you are not already connected
             if self.vc == None or not self.vc.is_connected():
-                self.vc = await self.music_queue[0][1].connect()
+                self.vc = self.music_queue[0][1].connect()
 
                 # in case we fail to connect
                 if self.vc == None:
@@ -64,7 +64,6 @@ class music_cog(commands.Cog):
 
             # remove the first element as you are currently playing it
             self.music_queue.pop(0)
-
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
             self.is_playing = False
