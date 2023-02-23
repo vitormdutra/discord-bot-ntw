@@ -62,7 +62,7 @@ class music_cog(commands.Cog):
 
             # remove the first element as you are currently playing it
             self.music_queue.pop(0)
-            self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
+            await self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
             self.is_playing = False
             await self.vc.disconnect()
@@ -87,7 +87,7 @@ class music_cog(commands.Cog):
                 self.music_queue.append([song, voice_channel])
 
                 if self.is_playing == False:
-                    self.play_music(ctx)
+                    await self.play_music(ctx)
 
     @commands.command(name="stop", help="Stop the current song being played")
     async def pause(self, ctx, *args):
