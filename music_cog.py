@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 
 from youtube_dl import YoutubeDL
-
-
+import yt_dlp
 class music_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -22,7 +21,7 @@ class music_cog(commands.Cog):
 
     # searching the item on youtube
     def search_yt(self, item):
-        with YoutubeDL(self.YDL_OPTIONS) as ydl:
+        with yt_dlp.YoutubeDL(self.YDL_OPTIONS) as ydl:
             try:
                 info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
             except Exception:
