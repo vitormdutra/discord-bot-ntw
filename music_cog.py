@@ -1,10 +1,8 @@
 import discord
 from discord.ext import commands
-
-#from youtube_dl import YoutubeDL
 import yt_dlp
 class music_cog(commands.Cog):
-    def __enter__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
         # all the music related stuff
@@ -19,6 +17,9 @@ class music_cog(commands.Cog):
 
         self.vc = None
 
+    def __enter__(self):
+        return
+    
     # searching the item on youtube
     def search_yt(self, item):
         with yt_dlp.YoutubeDL(self.YDL_OPTIONS) as ydl:
