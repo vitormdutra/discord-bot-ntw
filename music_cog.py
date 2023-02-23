@@ -50,11 +50,11 @@ class music_cog(commands.Cog):
             m_url = self.music_queue[0][0]['source']
 
             # try to connect to voice channel if you are not already connected
-            if self.vc == None or not self.vc.is_connected():
+            if self.vc is None or not self.vc.is_connected():
                 self.vc = self.music_queue[0][1].connect()
 
                 # in case we fail to connect
-                if self.vc == None:
+                if self.vc is None:
                     await ctx.send("Could not connect to the voice channel")
                     return
             else:
@@ -62,7 +62,7 @@ class music_cog(commands.Cog):
 
             # remove the first element as you are currently playing it
             self.music_queue.pop(0)
-            await self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
+            self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: await self.play_next())
         else:
             self.is_playing = False
             await self.vc.disconnect()
@@ -86,7 +86,7 @@ class music_cog(commands.Cog):
                 await ctx.send("Song added to the queue")
                 self.music_queue.append([song, voice_channel])
 
-                if self.is_playing == False:
+                if self.is_playing is False:
                     await self.play_music(ctx)
 
     @commands.command(name="stop", help="Stop the current song being played")
