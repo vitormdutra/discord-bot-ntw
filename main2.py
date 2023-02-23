@@ -8,9 +8,6 @@ import os
 from help_cog import help_cog
 from music_cog import music_cog
 
-bot = commands.Bot(intents=discord.Intents.all(), command_prefix='/')
-
-
 # remove the default help command so that we can write out own
 # bot.remove_command('help')
 
@@ -19,24 +16,11 @@ bot = commands.Bot(intents=discord.Intents.all(), command_prefix='/')
 # bot.add_cog(music_cog(bot))
 
 # start the bot with our token
+bot = commands.Bot(intents=discord.Intents.all(), command_prefix='/')
 
 # bot.run("MTAyNjIzOTk1MzE2MTY4Mjk0NQ.G8QMtT.y1-RXvr2T2tW4Ug7hiTaKtYP9RkpmVZ2ZSGThs")
-
-async def main():
+@bot.event
+async def on_ready():
     await bot.add_cog(music_cog(bot))
-    await bot.start('MTAyNjIzOTk1MzE2MTY4Mjk0NQ.G8QMtT.y1-RXvr2T2tW4Ug7hiTaKtYP9RkpmVZ2ZSGThs')
-
-
-asyncio.run(main())
-
-
-def __enter__(self):
-    return "entered!"
-
-
-def __aenter__(self):
-    return "Sla!"
-
-
-def __exit__(self, exc_type, exc_value, traceback):
-    print("exited!")
+    
+bot.run('MTAyNjIzOTk1MzE2MTY4Mjk0NQ.G8QMtT.y1-RXvr2T2tW4Ug7hiTaKtYP9RkpmVZ2ZSGThs')
