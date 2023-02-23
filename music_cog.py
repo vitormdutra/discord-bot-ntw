@@ -1,3 +1,4 @@
+#import discord
 import discord
 from discord.ext import commands
 import yt_dlp
@@ -89,6 +90,13 @@ class music_cog(commands.Cog):
                 if self.is_playing is False:
                     await self.play_music(ctx)
 
+    @commands.command(name="join", help="command to join in room")
+    async def join(self, ctx, *, channel: discord.VoiceChannel):
+        if ctx.voice_client is not None:
+            return await ctx.voice_client.move_to(channel)
+
+        await channel.connect()
+
     @commands.command(name="stop", help="Stop the current song being played")
     async def pause(self, ctx, *args):
         if self.is_playing:
@@ -133,4 +141,4 @@ class music_cog(commands.Cog):
     async def dc(self, ctx):
         self.is_playing = False
         self.is_paused = False
-        await self.vc.disconnect() 
+        await self.vc.disconnect()
