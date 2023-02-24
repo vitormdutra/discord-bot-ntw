@@ -1,9 +1,7 @@
+#import discord
 import discord
 from discord.ext import commands
-
-from youtube_dl import YoutubeDL
-
-
+import yt_dlp
 class music_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -22,7 +20,7 @@ class music_cog(commands.Cog):
 
     # searching the item on youtube
     def search_yt(self, item):
-        with YoutubeDL(self.YDL_OPTIONS) as ydl:
+        with yt_dlp.YoutubeDL(self.YDL_OPTIONS) as ydl:
             try:
                 info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
             except Exception:
@@ -53,11 +51,11 @@ class music_cog(commands.Cog):
             m_url = self.music_queue[0][0]['source']
 
             # try to connect to voice channel if you are not already connected
-            if self.vc == None or not self.vc.is_connected():
-                self.vc = await self.music_queue[0][1].connect()
+            if self.vc is None or not self.vc.is_connected():
+                self.vc = self.music_queue[0][1].connect()
 
                 # in case we fail to connect
-                if self.vc == None:
+                if self.vc is None:
                     await ctx.send("Could not connect to the voice channel")
                     return
             else:
@@ -65,7 +63,6 @@ class music_cog(commands.Cog):
 
             # remove the first element as you are currently playing it
             self.music_queue.pop(0)
-
             self.vc.play(discord.FFmpegPCMAudio(m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
         else:
             self.is_playing = False
@@ -90,8 +87,16 @@ class music_cog(commands.Cog):
                 await ctx.send("Song added to the queue")
                 self.music_queue.append([song, voice_channel])
 
-                if self.is_playing == False:
+                if self.is_playing is False:
                     await self.play_music(ctx)
+
+    @commands.command(name="join", help="command to join in room")
+    async def join(self, ctx, *, channel: discord.VoiceChannel):
+        voice_channel = ctx.author.voice.channel
+        if ctx.voice_client is not None:
+            return await ctx.voice_client.move_to(voice_channel)
+
+        await voice_channel.connect()
 
     @commands.command(name="stop", help="Stop the current song being played")
     async def pause(self, ctx, *args):
@@ -137,4 +142,4 @@ class music_cog(commands.Cog):
     async def dc(self, ctx):
         self.is_playing = False
         self.is_paused = False
-        await self.vc.disconnect() 
+        await self.vc.disconnect()
