@@ -78,8 +78,8 @@ class Music(commands.Cog):
     @commands.command()
     async def yt(self, ctx, *, url):
         """Plays from a url (almost anything youtube_dl supports)"""
-        channel = discord.VoiceChannel
-        await channel.connect()
+        self.channel = discord.VoiceChannel
+        await self.channel.connect()
 
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
