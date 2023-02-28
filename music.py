@@ -55,7 +55,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 class Music(commands.Cog):
     def __init__(self, bot):
-        self.channel = None
         self.bot = bot
 
     @commands.command()
@@ -79,8 +78,8 @@ class Music(commands.Cog):
     @commands.command()
     async def yt(self, ctx, *, url):
         """Plays from a url (almost anything youtube_dl supports)"""
-        self.channel = discord.VoiceChannel
-        await self.channel.connect()
+        channel = discord.VoiceChannel
+        await channel.connect(discord.VoiceChannel)
 
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
