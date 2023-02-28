@@ -76,10 +76,21 @@ class Music(commands.Cog):
         await ctx.send(f'Now playing: {query}')
 
     @commands.command()
-    async def yt(self, ctx, *, url):
+    async def yt(self, ctx, *, url, channel: discord.VoiceChannel):
         """Plays from a url (almost anything youtube_dl supports)"""
-        channel = discord.VoiceChannel
-        await channel.connect(discord.VoiceChannel)
+
+        """ voice_channel = ctx.author.voice.channel
+                if ctx.voice_client is not None:
+                    return await ctx.voice_client.move_to(voice_channel)
+
+                await voice_channel.connect()
+                """
+
+        voice_channel = ctx.author.voice.channel
+        await voice_channel.connect()
+
+        #channel = discord.VoiceChannel
+        #await channel.connect()
 
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
