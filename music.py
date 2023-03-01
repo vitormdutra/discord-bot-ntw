@@ -107,8 +107,12 @@ class Music(commands.Cog):
         print(artist['artists'][0]['name'], artist['name'], artist['id'])
 
         await ctx.send(f"teste: " + music)
-        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(music))
-        ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
+
+        player = await spotify.start_playback(music, loop=self.bot.loop)
+        ctx.voice_client.play(player, after=lambda e: print(f'layer error: {e}') if e else None)
+
+        """source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(music))
+        ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)"""
         #await ctx.voice_client.play(music)
 
     @commands.command()
