@@ -108,7 +108,7 @@ class Music(commands.Cog):
 
         await ctx.send(f"teste: " + music)
 
-        player = await spotify.start_playback(music, loop=self.bot.loop)
+        player = await spotify.start_playback(music)
         ctx.voice_client.play(player, after=lambda e: print(f'layer error: {e}') if e else None)
 
         """source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(music))
