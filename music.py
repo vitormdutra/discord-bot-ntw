@@ -108,7 +108,7 @@ class Music(commands.Cog):
 
         await ctx.send(f"teste: " + music)
         source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(music))
-        await ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
+        ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
         #await ctx.voice_client.play(music)
 
     @commands.command()
