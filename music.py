@@ -102,10 +102,11 @@ class Music(commands.Cog):
         results = spotify.search(q='artist: ' + search, type='track')
         items = results['tracks']['items']
         artist = items[0]
+        music = (artist['artists'][0]['name'])
         print(artist['artists'][0]['name'], artist['name'], artist['id'])
 
-        await ctx.send(f"teste: " + artist)
-        await ctx.voice_client.play(artist['artists'][0]['name'], artist['name'], artist['id'])
+        await ctx.send(f"teste: " + music)
+        await ctx.voice_client.play(music)
 
     @commands.command()
     async def yt(self, ctx, *, url):

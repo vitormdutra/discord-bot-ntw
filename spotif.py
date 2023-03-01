@@ -5,7 +5,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',
                                                                 client_secret='2db8ef640cc54512a9b8067873510495'))
 
-name = 'chouchou'
+name = 'Gojira'
 
 
 # results = spotify.search(q='artist:' + name, type='artist')
@@ -18,10 +18,8 @@ def test(search: str):
     results = spotify.search(q='artist: ' + search, type='track')
     items = results['tracks']['items']
     artist = items[0]
-    music = (artist['artists'][0]['name'], artist['name'])
+    music = (artist['artists'][0]['name'])
     # print(artist['artists'][0]['name'],artist['name'],artist['id'])
-    test = print(artist['artists'][0]['name'], artist['name'])
-    print(test)
     print(music)
 
 
