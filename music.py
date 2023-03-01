@@ -60,18 +60,9 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def join(self, ctx, *, channel: discord.VoiceChannel):
-        #Joins a voice channel
-
-        if ctx.voice_client is not None:
-            return await ctx.voice_client.move_to(channel)
-
-        await channel.connect()
-
-    @commands.command()
+    """@commands.command()
     async def play(self, ctx, *, url):
-        """Plays a file from the local filesystem"""
+        #Plays a file from the local filesystem
 
         voice_channel = ctx.author.voice.channel
         if ctx.voice_client is not None:
@@ -83,17 +74,16 @@ class Music(commands.Cog):
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
 
-        await ctx.send(f'Now playing: {player.title}')
+        await ctx.send(f'Now playing: {player.title}')"""
+
 
     @commands.command()
-    async def spo(self, ctx, *, search: str):
+    async def spotify(self, ctx, *, search: str):
         voice_channel = ctx.author.voice.channel
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(voice_channel)
 
         await voice_channel.connect()
-        #conexão
-
 
         spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',
                                                                         client_secret='2db8ef640cc54512a9b8067873510495'))
@@ -109,13 +99,9 @@ class Music(commands.Cog):
         player = await spotify.start_playback(music)
         ctx.voice_client.play(player, after=lambda e: print(f'layer error: {e}') if e else None)
 
-        """source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(music))
-        ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)"""
-        #await ctx.voice_client.play(music)
 
     @commands.command()
-    async def yt(self, ctx, *, url):
-        """Plays from a url (almost anything youtube_dl supports)"""
+    async def play(self, ctx, *, url):
 
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
@@ -123,15 +109,6 @@ class Music(commands.Cog):
 
         await ctx.send(f'Now playing: {player.title}')
 
-    @commands.command()
-    async def volume(self, ctx, volume: int):
-        """Changes the player's volume"""
-
-        if ctx.voice_client is None:
-            return await ctx.send("Not connected to a voice channel.")
-
-        ctx.voice_client.source.volume = volume / 100
-        await ctx.send(f"Changed volume to {volume}%")
 
     @commands.command()
     async def stop(self, ctx):
@@ -139,8 +116,8 @@ class Music(commands.Cog):
 
         await ctx.voice_client.disconnect()
 
-    @play.before_invoke
-    @yt.before_invoke
+    #@play.before_invoke
+    """@play.before_invoke
     async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
@@ -149,4 +126,4 @@ class Music(commands.Cog):
                 await ctx.send("You are not connected to a voice channel.")
                 raise commands.CommandError("Author not connected to a voice channel.")
         elif ctx.voice_client.is_playing():
-            ctx.voice_client.stop()
+            ctx.voice_client.stop()"""
