@@ -70,22 +70,20 @@ class Music(commands.Cog):
         await channel.connect()
 
     @commands.command()
-    async def play(self, ctx, *, query):
+    async def play(self, ctx, *, url):
         """Plays a file from the local filesystem"""
 
-        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
-        ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
-
-        await ctx.send(f'Now playing: {query}')
-
-    """    @commands.command(name="join", help="command to join in room")
-    async def join(self, ctx, *, channel: discord.VoiceChannel):
         voice_channel = ctx.author.voice.channel
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(voice_channel)
 
-        await voice_channel.connect()"""
+        await voice_channel.connect()
 
+        async with ctx.typing():
+            player = await YTDLSource.from_url(url, loop=self.bot.loop)
+            ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
+
+        await ctx.send(f'Now playing: {player.title}')
 
     @commands.command()
     async def spo(self, ctx, *, search: str):
@@ -121,16 +119,6 @@ class Music(commands.Cog):
 
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
-            ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-
-        await ctx.send(f'Now playing: {player.title}')
-
-    @commands.command()
-    async def stream(self, ctx, *, url):
-        """Streams from a url (same as yt, but doesn't predownload)"""
-
-        async with ctx.typing():
-            player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
 
         await ctx.send(f'Now playing: {player.title}')
