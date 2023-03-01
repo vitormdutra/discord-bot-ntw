@@ -95,9 +95,9 @@ class Music(commands.Cog):
 
         try:
             track = await spotify.SpotifyTrack.search(query=search, return_first=True)
-            ctx.voice_client.play(track)
+            await ctx.voice_client.play(track)
         except Exception as e:
-            print(e)
+            await ctx.send("error")
 
     @commands.command()
     async def yt(self, ctx, *, url):
