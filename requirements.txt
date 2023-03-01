@@ -27,3 +27,4 @@ yarl==1.7.2
 youtube-dl==2021.12.17
 yt-dlp==2023.02.17
 spotipy==2.22.1
+spotify==0.10.2
