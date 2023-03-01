@@ -86,7 +86,7 @@ class Music(commands.Cog):
 
 
     @commands.command()
-    async def spo(self, ctx, *args, search: str):
+    async def spo(self, ctx, *, search: str):
         voice_channel = ctx.author.voice.channel
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(voice_channel)
