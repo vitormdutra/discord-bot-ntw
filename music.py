@@ -86,7 +86,7 @@ class Music(commands.Cog):
 
 
     @commands.command()
-    async def yt(self, ctx, *, url, channel: discord.VoiceChannel):
+    async def yt(self, ctx, *, url):
         """Plays from a url (almost anything youtube_dl supports)"""
 
         voice_channel = ctx.author.voice.channel
