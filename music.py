@@ -96,6 +96,7 @@ class Music(commands.Cog):
         await voice_channel.connect()
         #conexão
 
+
         spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',
                                                                         client_secret='2db8ef640cc54512a9b8067873510495'))
 
@@ -106,7 +107,8 @@ class Music(commands.Cog):
         print(artist['artists'][0]['name'], artist['name'], artist['id'])
 
         await ctx.send(f"teste: " + music)
-        await ctx.voice_client.play(music, after=lambda e: print(f'Player error: {e}') if e else None)
+        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(music))
+        await ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
         #await ctx.voice_client.play(music)
 
     @commands.command()
