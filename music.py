@@ -106,7 +106,8 @@ class Music(commands.Cog):
         print(artist['artists'][0]['name'], artist['name'], artist['id'])
 
         await ctx.send(f"teste: " + music)
-        await ctx.voice_client.play(music)
+        await ctx.voice_client.play(music, after=lambda e: print(f'Player error: {e}') if e else None)
+        #await ctx.voice_client.play(music)
 
     @commands.command()
     async def yt(self, ctx, *, url):
