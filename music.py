@@ -93,7 +93,7 @@ class Music(commands.Cog):
 
         await voice_channel.connect()
 
-        track = await spotify.SpotifyTrack.search(query=search, return_first=True)
+        track = await spotify.search(query=search, return_first=True)
         await ctx.send(f"teste: " + track)
         await ctx.voice_client.play(track, after=lambda e: print(f'Player error: {e}') if e else None)
 
