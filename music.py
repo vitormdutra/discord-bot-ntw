@@ -92,10 +92,8 @@ class Music(commands.Cog):
         voice_channel = ctx.author.voice.channel
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(voice_channel)
-        else:
-            await voice_channel.connect()
 
-        #await voice_channel.connect()
+        await voice_channel.connect()
 
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
