@@ -80,12 +80,12 @@ class Music(commands.Cog):
     async def yt(self, ctx, *, url):
         """Plays from a url (almost anything youtube_dl supports)"""
 
-        channel = discord.VoiceChannel
+        channel: discord.VoiceChannel
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(channel)
 
         await channel.connect();
-        
+
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
