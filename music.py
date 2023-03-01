@@ -103,6 +103,12 @@ class Music(commands.Cog):
     @commands.command()
     async def play(self, ctx, *, url):
 
+        voice_channel = ctx.author.voice.channel
+        if ctx.voice_client is not None:
+            return await ctx.voice_client.move_to(voice_channel)
+
+        await voice_channel.connect()
+
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
