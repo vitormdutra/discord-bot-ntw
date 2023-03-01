@@ -93,11 +93,9 @@ class Music(commands.Cog):
 
         await voice_channel.connect()
 
-        try:
-            track = await spotify.SpotifyTrack.search(query=search, return_first=True)
-            await ctx.voice_client.play(track, after=lambda e: print(f'Player error: {e}') if e else None)
-        except Exception as e:
-            await ctx.send("error")
+        track = await spotify.SpotifyTrack.search(query=search, return_first=True)
+        await ctx.send(f"teste: " + track)
+        await ctx.voice_client.play(track, after=lambda e: print(f'Player error: {e}') if e else None)
 
     @commands.command()
     async def yt(self, ctx, *, url):
