@@ -2,10 +2,12 @@ import asyncio
 
 import discord
 import spotify
+import spotipy
 import youtube_dl
 import yt_dlp
 
 from discord.ext import commands
+from spotipy import SpotifyClientCredentials
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -92,9 +94,18 @@ class Music(commands.Cog):
             return await ctx.voice_client.move_to(voice_channel)
 
         await voice_channel.connect()
-        song = spotify.search(q=search)
-        await ctx.send(f"teste: " + song)
-        await ctx.voice_client.play(song)
+        #conexão
+
+        spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',
+                                                                        client_secret='2db8ef640cc54512a9b8067873510495'))
+
+        results = spotify.search(q='artist: ' + search, type='track')
+        items = results['tracks']['items']
+        artist = items[0]
+        print(artist['artists'][0]['name'], artist['name'], artist['id'])
+
+        await ctx.send(f"teste: " + artist)
+        await ctx.voice_client.play(artist['artists'][0]['name'], artist['name'], artist['id'])
 
     @commands.command()
     async def yt(self, ctx, *, url):
