@@ -1,6 +1,7 @@
 import asyncio
 
 import discord
+import spotify
 import youtube_dl
 import yt_dlp
 
@@ -83,6 +84,20 @@ class Music(commands.Cog):
 
         await voice_channel.connect()"""
 
+
+    @commands.command()
+    async def spo(self, ctx, *args, search: str):
+        voice_channel = ctx.author.voice.channel
+        if ctx.voice_client is not None:
+            return await ctx.voice_client.move_to(voice_channel)
+
+        await voice_channel.connect()
+
+        try:
+            track = await spotify.SpotifyTrack.search(query=search, return_first=True)
+            ctx.voice_client.play(track)
+        except Exception as e:
+            print(e)
 
     @commands.command()
     async def yt(self, ctx, *, url):

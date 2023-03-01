@@ -23,4 +23,4 @@ RUN export SPOTIPY_CLIENT_SECRET='2db8ef640cc54512a9b8067873510495'
 COPY . ./
 
 
-CMD ["sh","-c","python3 spotif.py"]
+CMD ["sh","-c","python3 main2.py"]

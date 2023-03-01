@@ -1,18 +1,23 @@
 import spotipy
+import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 
-auth_manager = SpotifyClientCredentials()
-sp = spotipy.Spotify(auth_manager=auth_manager)
+spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',client_secret='2db8ef640cc54512a9b8067873510495'))
 
-playlists = sp.user_playlists('spotify')
-while playlists:
-    for i, playlist in enumerate(playlists['items']):
-        print("%4d %s %s" % (i + 1 + playlists['offset'], playlist['uri'],  playlist['name']))
-    if playlists['next']:
-        playlists = sp.next(playlists)
-    else:
-        playlists = None
+if len(sys.argv) > 1:
+    name = ' '.join(sys.argv[1:])
+else:
+    name = 'Gojira'
 
+#results = spotify.search(q='artist:' + name, type='artist')
+results = spotify.search(q='search: ' + name,)
+items = results['search']['items']
+if len(items) > 0:
+    artist = items[0]
+    print(artist['name'], artist['images'][0]['url'])
 
-        #export SPOTIPY_CLIENT_ID='bf4f5f8fb16240e594f8bf440c848483'
-        #export SPOTIPY_CLIENT_SECRET='2db8ef640cc54512a9b8067873510495'
+    # auth_manager = SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',client_secret='2db8ef640cc54512a9b8067873510495')
+try:
+    track = spotify.SpotifyTrack.search(q='search', return_first=True)
+except:
+    print('e')
