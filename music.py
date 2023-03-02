@@ -60,46 +60,6 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    """@commands.command()
-    async def play(self, ctx, *, url):
-        #Plays a file from the local filesystem
-
-        voice_channel = ctx.author.voice.channel
-        if ctx.voice_client is not None:
-            return await ctx.voice_client.move_to(voice_channel)
-
-        await voice_channel.connect()
-
-        async with ctx.typing():
-            player = await YTDLSource.from_url(url, loop=self.bot.loop)
-            ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-
-        await ctx.send(f'Now playing: {player.title}')"""
-
-
-    @commands.command()
-    async def spotify(self, ctx, *, search: str):
-        voice_channel = ctx.author.voice.channel
-        if ctx.voice_client is not None:
-            return await ctx.voice_client.move_to(voice_channel)
-
-        await voice_channel.connect()
-
-        spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',
-                                                                        client_secret='2db8ef640cc54512a9b8067873510495'))
-
-        results = spotify.search(q='artist: ' + search, type='track')
-        items = results['tracks']['items']
-        artist = items[0]
-        music = (artist['artists'][0]['name'])
-        print(artist['artists'][0]['name'], artist['name'], artist['id'])
-
-        await ctx.send(f"teste: " + music)
-
-        player = await spotify.start_playback(music)
-        ctx.voice_client.play(player, after=lambda e: print(f'layer error: {e}') if e else None)
-
-
     @commands.command()
     async def play(self, ctx, *, url):
 
@@ -122,14 +82,40 @@ class Music(commands.Cog):
 
         await ctx.voice_client.disconnect()
 
-    #@play.before_invoke
-    """@play.before_invoke
-    async def ensure_voice(self, ctx):
-        if ctx.voice_client is None:
-            if ctx.author.voice:
-                await ctx.author.voice.channel.connect()
-            else:
-                await ctx.send("You are not connected to a voice channel.")
-                raise commands.CommandError("Author not connected to a voice channel.")
-        elif ctx.voice_client.is_playing():
-            ctx.voice_client.stop()"""
+    """@commands.command()
+        async def play(self, ctx, *, url):
+            #Plays a file from the local filesystem
+
+            voice_channel = ctx.author.voice.channel
+            if ctx.voice_client is not None:
+                return await ctx.voice_client.move_to(voice_channel)
+
+            await voice_channel.connect()
+
+            async with ctx.typing():
+                player = await YTDLSource.from_url(url, loop=self.bot.loop)
+                ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
+
+            await ctx.send(f'Now playing: {player.title}')"""
+
+    """@commands.command()
+    async def spotify(self, ctx, *, search: str):
+        voice_channel = ctx.author.voice.channel
+        if ctx.voice_client is not None:
+            return await ctx.voice_client.move_to(voice_channel)
+
+        await voice_channel.connect()
+
+        spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='bf4f5f8fb16240e594f8bf440c848483',
+                                                                        client_secret='2db8ef640cc54512a9b8067873510495'))
+
+        results = spotify.search(q='artist: ' + search, type='track')
+        items = results['tracks']['items']
+        artist = items[0]
+        music = (artist['artists'][0]['name'])
+        print(artist['artists'][0]['name'], artist['name'], artist['id'])
+
+        await ctx.send(f"teste: " + music)
+
+        player = await spotify.start_playback(music)
+        ctx.voice_client.play(player, after=lambda e: print(f'layer error: {e}') if e else None)"""
