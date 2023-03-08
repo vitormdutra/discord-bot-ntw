@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GITPATH=/home/vitor/git
+GITPATH=/root/git/discord-bot-ntw/
 PROJECT=discord-bot-ntw
 
 GIT=${GITPATH}/${PROJECT}
