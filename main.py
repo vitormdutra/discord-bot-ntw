@@ -10,7 +10,7 @@ from music import Music
 # register the class with the bot
 # bot.add_cog(help_cog(bot))
 # bot.add_cog(music_cog(bot))
-
+# test
 # start the bot with our token
 bot = commands.Bot(intents=discord.Intents.all(), command_prefix='/')
 
