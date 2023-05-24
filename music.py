@@ -9,7 +9,7 @@ import yt_dlp
 from discord.ext import commands
 from spotipy import SpotifyClientCredentials
 
-### Suppress noise about console usage from errors
+# Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
 
 
