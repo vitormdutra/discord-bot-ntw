@@ -4,6 +4,7 @@ from discord.ext import commands
 # import all of the cogs
 from music import Music
 
+######
 # remove the default help command so that we can write out own
 # bot.remove_command('help')
 
