@@ -5,7 +5,7 @@ PROJECT=discord-bot-ntw
 
 GIT=${GITPATH}/${PROJECT}
 
-CTNR_NAME=discord-bot
+CTNR_NAME=discord-bot-ntw
 
 cd ${GIT}
 
