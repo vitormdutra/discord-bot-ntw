@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-import yt_dlp as youtube_dl
+import youtube_dl
 import os
 import asyncio
 
-DISCORD_TOKEN = "Information goes here"
+DISCORD_TOKEN = "MTAyNjIzOTk1MzE2MTY4Mjk0NQ.G8QMtT.y1-RXvr2T2tW4Ug7hiTaKtYP9RkpmVZ2ZSGThs"
 
 intents = discord.Intents.default()
 intents.message_content = True
