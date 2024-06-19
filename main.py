@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import youtube_dl
+import yt_dlp as youtube_dl
 import os
 import asyncio
 
@@ -34,7 +34,7 @@ ffmpeg_options = {
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
 if not discord.opus.is_loaded():
-    opus_path = '/opt/homebrew/Cellar/opus/1.5.2/lib/libopus.0.dylib'
+    opus_path = '/usr/lib/aarch64-linux-gnu/libopus.so.0'
     discord.opus.load_opus(opus_path)
 
 class YTDLSource(discord.PCMVolumeTransformer):
@@ -61,8 +61,10 @@ class YTDLSource(discord.PCMVolumeTransformer):
         if os.path.exists(self.filename):
             os.remove(self.filename)
 
+
 queue = []
 current_player = None
+
 
 async def play_next(ctx):
     global current_player
@@ -84,6 +86,7 @@ async def play_next(ctx):
         if ctx.voice_client:
             await ctx.voice_client.disconnect()
 
+
 @bot.command(name='join', help='Bot join voice chat')
 async def join(ctx):
     if not ctx.message.author.voice:
@@ -93,6 +96,7 @@ async def join(ctx):
         channel = ctx.message.author.voice.channel
     await channel.connect()
 
+
 @bot.command(name='leave', help='Bot leave voice chat')
 async def leave(ctx):
     voice_client = ctx.message.guild.voice_client
@@ -101,6 +105,7 @@ async def leave(ctx):
     else:
         await ctx.send("bot is not connected to a voice channel")
 
+
 @bot.command(name='play', help='play a music on voice chat')
 async def play(ctx, url):
     queue.append(url)
@@ -108,6 +113,7 @@ async def play(ctx, url):
         await play_next(ctx)
     else:
         await ctx.send(f'**Add to queue:** {url}')
+
 
 @bot.command(name='pause', help='Stop music on voice chat')
 async def pause(ctx):
@@ -118,6 +124,7 @@ async def pause(ctx):
     else:
         await ctx.send("The bot is not playing")
 
+
 @bot.command(name='resume', help='Resume music on voice chat')
 async def resume(ctx):
     voice_client = ctx.message.guild.voice_client
@@ -126,6 +133,7 @@ async def resume(ctx):
         await ctx.send("The music has been resumed.")
     else:
         await ctx.send("The bot is not playing")
+
 
 @bot.command(name='stop', help='Stop music on voice chat')
 async def stop(ctx):
@@ -149,9 +157,11 @@ async def stop(ctx):
             print(f'Error cleaning {url}: {e}')
     queue.clear()
 
+
 @bot.event
 async def on_ready():
     print(f'Bot {bot.user.name} has connected to Discord!')
+
 
 if __name__ == "__main__":
     bot.run(DISCORD_TOKEN)

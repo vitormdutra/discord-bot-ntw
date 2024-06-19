@@ -1,12 +1,10 @@
-FROM python:3.10
+FROM python:3.9-slim
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY requirements.txt ./
-
-RUN apt-get update
-RUN apt-get install -y locales locales-all
-RUN /usr/local/bin/python -m pip install --upgrade pip
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libopus0
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -14,11 +12,8 @@ ENV LANGUAGE en_US.UTF-8
 ENV PYTHONIOENCODING=utf-8
 ENV TZ="America/Sao_Paulo"
 
+COPY . .
+
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get install -y ffmpeg opus
-RUN pip install --upgrade --pre yt-dlp
 
-COPY . ./
-
-
-CMD ["sh","-c","python3 main.py"]
+CMD ["python", "main.py"]
