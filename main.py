@@ -108,6 +108,11 @@ async def leave(ctx):
 
 @bot.command(name='play', help='play a music on voice chat')
 async def play(ctx, url):
+    if ctx.author.voice is None:
+        await ctx.send(f"{ctx.message.author.name} not connected to a voice channel")
+        return
+    if ctx.voice_client is None:
+        await join(ctx)
     queue.append(url)
     if not ctx.voice_client.is_playing():
         await play_next(ctx)
