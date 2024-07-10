@@ -29,6 +29,7 @@ A template to create your own music bot for Discord. This bot can be easily self
 
 ## Installation
 
+### Using this repo
 1. Clone this repository:
     ```sh
     git clone https://github.com/vitormdutra/discord-bot-ntw.git
@@ -44,6 +45,17 @@ A template to create your own music bot for Discord. This bot can be easily self
     ```sh
     docker run -d --name discord-music-bot -e DISCORD_TOKEN=your-discord-token your-username/discord-music-bot
     ```
+
+### Using docker hub image
+1. Pull docker image from docker hub:
+    ```sh
+    docker pull vitormdutra/discord-bot-ntw:v1.0
+    ```
+
+2. Run docker with you discord token:
+   ```sh
+   docker run -d --name discord-bot --env DISCORD_TOKEN=DISCORD_TOKEN_GOES_HERE vitormdutra/discord-bot-ntw:v1.0
+   ```
 
 ## Usage
 
